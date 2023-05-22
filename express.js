@@ -49,6 +49,7 @@ app.get('/list', async (req, res) => {
 
 app.get('/:idProdotto', (req, res) => {
   req.params.idProdotto
+  
   // TODO fare la logica
 })
 

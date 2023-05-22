@@ -37,7 +37,16 @@ async function updateProdotto(descrizione, price, dettagli, id) {
  * @returns Promise<any>
  */
 async function getProdotto(id) {
-  return await get('SELECT * FROM prodotto WHERE id = ?', [id]);
+  let prodotto;
+  const prodotti=await listaProdotti()
+  for(let i=0; i<prodotti.length; i++){
+    if (prodotti[i].id == id){
+      prodotto=prodotti[i]
+      break;
+    }
+  }
+  return prodotto;
+ // return await get('SELECT * FROM prodotto WHERE id = ?', [id]);
 }
 
 /**
