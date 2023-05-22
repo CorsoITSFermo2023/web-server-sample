@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 const { initStruct } = require('./init-struct');
-const { listaProdotti, insertProdotto } = require('./dao');
+const { listaProdotti, insertProdotto, getProdotto, updateProdotto, deleteProdotto} = require('./dao');
 const port = 3000;
 
 const app = express();
@@ -47,9 +47,10 @@ app.get('/list', async (req, res) => {
   ); */
 })
 
-app.get('/:idProdotto', (req, res) => {
-  req.params.idProdotto
+app.get('/:idProdotto', async (req, res) => {
+  const id = await getProdotto(req.params.idProdotto);
   // TODO fare la logica
+  res.json(id);
 })
 
 app.post('/', async (req, res) => {
@@ -57,11 +58,14 @@ app.post('/', async (req, res) => {
   res.json(newId);
 });
 
-app.put('/:idProdotto', (req, res) => {
-
+app.put('/:idProdotto', async (req, res) => {
+  const setId = await updateProdotto(req.body.descrizione, req.body.price, req.body.dettagli,req.params.idProdotto);
+  res.json(setId);
 });
 
-app.delete('/:idProdotto', (req, res) => {
+app.delete('/:idProdotto', async (req, res) => {
+ const delId=await deleteProdotto(req.params.idProdotto);
+ res.json(delId);
 
 });
 
