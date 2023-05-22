@@ -6,7 +6,25 @@ const db = new Database('sample.db');
  * 
  * @param {string} query 
  * @param {any[]} param 
- * @returns any[]
+ * @returns Promise<any>
+ */
+const get = (query, param) => {
+  return new Promise((resolve, reject) => {
+    db.get(query, param, (err, row) => {
+      if(err) {
+        reject(err);
+      } else {
+        resolve(row);
+      }
+    })
+  })
+}
+
+/**
+ * 
+ * @param {string} query 
+ * @param {any[]} param 
+ * @returns Promise<any[]>
  */
 const all = (query, param) => {
   return new Promise((resolve, reject) => {
@@ -24,7 +42,7 @@ const all = (query, param) => {
  * 
  * @param {string} query 
  * @param {any[]} param 
- * @returns any
+ * @returns Promise<any>
  */
 const run = (query, param) => {
   return new Promise((resolve, reject) => {
@@ -42,7 +60,7 @@ const run = (query, param) => {
  * 
  * @param {string} query 
  * @param {any[]} param 
- * @returns any
+ * @returns Promise<number | undefined>
  */
 const insert = (query, param) => {
   return new Promise((resolve, reject) => {
@@ -56,10 +74,30 @@ const insert = (query, param) => {
   })
 }
 
+/**
+ * 
+ * @param {string} query 
+ * @param {any[]} param 
+ * @returns Promise<number>
+ */
+const update = (query, param) => {
+  return new Promise((resolve, reject) => {
+    db.run(query, param, function (err, rows) {
+      if(err) {
+        reject(err);
+      } else {
+        resolve(this.changes);
+      }
+    })
+  })
+}
 
+const remove = update;
 
 module.exports = {
   all,
   run,
-  insert
+  insert,
+  update,
+  remove
 }

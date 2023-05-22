@@ -1,4 +1,4 @@
-const { all, insert } = require("./db")
+const { all, insert, remove } = require("./db")
 
 /**
  * 
@@ -19,7 +19,42 @@ async function insertProdotto(descrizione, price, dettagli) {
   return await insert('INSERT INTO prodotto (descrizione, price, dettagli) values (?, ? ,?)', [descrizione, price, dettagli]);
 }
 
+/**
+ * 
+ * @param {string} descrizione 
+ * @param {number} price 
+ * @param {string} dettagli 
+ * @param {number} id 
+ * @returns Promise<number>
+ */
+async function updateProdotto(descrizione, price, dettagli, id) {
+  return await update('UPDATE prodotto SET descrizione = ?, price = ?, dettagli = ? WHERE id = ?', [descrizione, price, dettagli, id]);
+}
+
+/**
+ * 
+ * @param {id} number 
+ * @returns Promise<any>
+ */
+async function getProdotto(id) {
+  return await get('SELECT * FROM prodotto WHERE id = ?)', [id]);
+}
+
+/**
+ * 
+ * @param {id} number 
+ * @returns Promise<any>
+ */
+async function deleteProdotto(id) {
+  return await remove('DELETE FROM prodotto WHERE id = ?)', [id]);
+}
+
+
+
 module.exports = {
   listaProdotti,
-  insertProdotto
+  insertProdotto,
+  deleteProdotto,
+  getProdotto,
+  updateProdotto
 }
