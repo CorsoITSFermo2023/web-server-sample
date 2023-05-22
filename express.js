@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 const { initStruct } = require('./init-struct');
-const { listaProdotti, insertProdotto } = require('./dao');
+const { listaProdotti, insertProdotto, updateProdotto } = require('./dao');
 const port = 3000;
 
 const app = express();
@@ -57,7 +57,10 @@ app.post('/', async (req, res) => {
   res.json(newId);
 });
 
-app.put('/:idProdotto', (req, res) => {
+app.put('/:idProdotto', async (req, res) => {
+  const idProdotto = req.params.idProdotto;
+  const {descrizione, price, dettagli} = req.body;
+  const result = await updateProdotto(idProdotto, descrizione, price, dettagli)
 
 });
 
