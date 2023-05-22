@@ -1,4 +1,4 @@
-const { all, insert, remove } = require("./db")
+const { all, insert, remove, get, update } = require("./db")
 
 /**
  * 
@@ -37,7 +37,7 @@ async function updateProdotto(descrizione, price, dettagli, id) {
  * @returns Promise<any>
  */
 async function getProdotto(id) {
-  return await get('SELECT * FROM prodotto WHERE id = ?)', [id]);
+  return await get('SELECT * FROM prodotto WHERE id = ?', [id]);
 }
 
 /**
@@ -46,7 +46,7 @@ async function getProdotto(id) {
  * @returns Promise<any>
  */
 async function deleteProdotto(id) {
-  return await remove('DELETE FROM prodotto WHERE id = ?)', [id]);
+  return await remove('DELETE FROM prodotto WHERE id = ?', [id]);
 }
 
 
