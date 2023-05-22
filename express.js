@@ -2,6 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const { initStruct } = require('./init-struct');
 const { listaProdotti, insertProdotto } = require('./dao');
+const { getProdotto } = require('./dao');
+
 const port = 3000;
 
 const app = express();
@@ -47,9 +49,12 @@ app.get('/list', async (req, res) => {
   ); */
 })
 
-app.get('/:idProdotto', (req, res) => {
+app.get('/:idProdotto', async (req, res) => {
   req.params.idProdotto
   // TODO fare la logica
+  const a = await getProdotto(req.params.idProdotto);
+  console.log(a);
+  res.json(a);
 })
 
 app.post('/', async (req, res) => {
@@ -58,11 +63,11 @@ app.post('/', async (req, res) => {
 });
 
 app.put('/:idProdotto', (req, res) => {
-
+  
 });
 
 app.delete('/:idProdotto', (req, res) => {
-
+  
 });
 
 
