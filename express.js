@@ -63,6 +63,12 @@ app.put('/:idProdotto', async(req, res) => {
   res.json(newId);
 });
 
+app.patch('/:idProdotto', async (req, res) => {
+  const newId = await updateProdotto(req.body.descrizione, req.body.price, req.body.dettagli, req.params.idProdotto)
+  res.json(newId);
+})
+
+
 app.delete('/:idProdotto', async(req, res) => {
   const newId= await deleteProdotto(req.params.idProdotto)
   res.json(newId);
