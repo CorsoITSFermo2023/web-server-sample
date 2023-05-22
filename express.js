@@ -61,11 +61,12 @@ app.post('/', async (req, res) => {
 app.put('/:idProdotto', async (req, res) => {
   const newId = req.params.idProdotto;
   await updateProdotto(req.body.descrizione, req.body.price, req.body.dettagli, newId);
+  res.json(newId)
 });
 
 app.delete('/:idProdotto', async (req, res) => {
-  const newId = req.params.idProdotto;
-  await deleteProdotto(req.body.descrizione, req.body.price, req.body.dettagli, newId);
+  await deleteProdotto(req.params.idProdotto);
+  res.end();
 });
 
 
