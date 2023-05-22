@@ -99,5 +99,6 @@ module.exports = {
   run,
   insert,
   update,
-  remove
+  remove,
+  get
 }
