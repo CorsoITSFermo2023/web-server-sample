@@ -1,4 +1,4 @@
-const { all, insert, remove } = require("./db")
+const { all, insert, remove, update, get } = require("./db")
 
 /**
  * 
