@@ -69,6 +69,10 @@ app.delete('/:idProdotto', (req, res) => {
   res.json("ciao")
 });
 
+app.patch('/:idProdotto', (req,res) => {
+  const newId = await updateProdotto(req.body.descrizione, req.body.price, req.body.dettagli, req.params.idProdotto)
+  res.json(newId);
+})
 
 initStruct().then(
   () => app.listen(port)
