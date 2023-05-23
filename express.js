@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const { initStruct } = require('./init-struct');
 const { listaProdotti, insertProdotto } = require('./dao');
 const { getProdotto } = require('./dao');
+const { updateProdotto } = require('./dao');
+const { deleteProdotto } = require('./dao');
 
 const port = 3000;
 
@@ -62,12 +64,14 @@ app.post('/', async (req, res) => {
   res.json(newId);
 });
 
-app.put('/:idProdotto', (req, res) => {
-  
+app.put('/:idProdotto', async (req, res) => {
+  const b = await updateProdotto(req.body.descrizione, req.body.price, req.body.dettagli)
+  res.json(b);
 });
 
-app.delete('/:idProdotto', (req, res) => {
-  
+app.delete('/:idProdotto', async (req, res) => {
+  const c = await deleteProdotto(req.params.idProdotto)
+  res.json(c)
 });
 
 
