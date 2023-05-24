@@ -36,7 +36,22 @@ app.post('/', async (req, res) => {
 });
 
 app.put('/:idProdotto', async (req, res) => {
-  const nuovo= await updateProdotto(req.body.descrizione,req.body.price,req.body.dettagli,req.params.idProdotto)
+
+  let desc =req.body.descrizione
+  let prezzo= req.body.price
+  let dett= req.body.dettagli
+
+  prodotto= await getProdotto(req.params.idProdotto)
+  
+  if(!req.body.descrizione)
+    desc=prodotto.descrizione
+  if(!req.body.price)
+    prezzo=prodotto.price
+  if(!req.body.dettagli)
+    dett=prodotto.dettagli
+
+
+  const nuovo= await updateProdotto(desc,prezzo,dett,req.params.idProdotto)
   const risposta = {
     message: 'prodotto modificato',
     nuovoprodotto: nuovo
