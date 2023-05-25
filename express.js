@@ -23,7 +23,18 @@ app.get('/list', async (req, res) => {
 })
 
 app.get('/:idProdotto', async (req, res) => {
- 
+  const id =req.params.idProdotto
+
+  const prodotto= await getProdotto(id)
+  res.json(prodotto)
+
+})
+
+app.post('/', async (req, res) => {
+  const newId = await insertProdotto(req.body.descrizione, req.body.price, req.body.dettagli)
+  res.json(newId);
+});
+
 app.put('/:idProdotto', async (req, res) => {
   const nuovo= await updateProdotto(req.body.descrizione,req.body.price,req.body.dettagli,req.params.idProdotto)
   const risposta = {
@@ -31,7 +42,6 @@ app.put('/:idProdotto', async (req, res) => {
     nuovoprodotto: nuovo
   };
   res.json(risposta)
-});
 });
 
 app.patch('/:idProdotto', async (req,res) => {
@@ -53,7 +63,7 @@ app.patch('/:idProdotto', async (req,res) => {
   const risposta = {
     message: 'prodotto modificato',
     nuovoprodotto: nuovo
-  }
+  };
   res.json(risposta)
 })
 
