@@ -44,6 +44,29 @@ app.put('/:idProdotto', async (req, res) => {
   res.json(risposta)
 });
 
+app.patch('/:idProdotto', async (req,res) => {
+  let desc =req.body.descrizione
+  let prezzo= req.body.price
+  let dett= req.body.dettagli
+
+  prodotto= await getProdotto(req.params.idProdotto)
+  
+  if(!req.body.descrizione)
+    desc=prodotto.descrizione
+  if(!req.body.price)
+    prezzo=prodotto.price
+  if(!req.body.dettagli)
+    dett=prodotto.dettagli
+
+
+  const nuovo= await updateProdotto(desc,prezzo,dett,req.params.idProdotto)
+  const risposta = {
+    message: 'prodotto modificato',
+    nuovoprodotto: nuovo
+  }
+  res.json(risposta)
+})
+
 app.delete('/:idProdotto', (req, res) => {
   const aggiorna= deleteProdotto(req.params.idProdotto)
   const risposta = {
@@ -51,6 +74,8 @@ app.delete('/:idProdotto', (req, res) => {
   };
   res.json(aggiorna)
 });
+
+
 
 
 initStruct().then(
