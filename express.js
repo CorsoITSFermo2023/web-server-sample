@@ -2,6 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const { initStruct } = require('./init-struct');
 const { listaProdotti, insertProdotto } = require('./dao');
+const rotteBelle = require('./rotte-belle');
+const rotteBrutte = require('./rotte-brutte');
 const port = 3000;
 
 const app = express();
@@ -65,6 +67,8 @@ app.delete('/:idProdotto', (req, res) => {
 
 });
 
+app.use('/rotte-belle', rotteBelle)
+app.use('/rotte-brutte', rotteBrutte)
 
 initStruct().then(
   () => app.listen(port)
